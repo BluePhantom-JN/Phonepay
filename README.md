@@ -11,7 +11,7 @@ project-root/
 │       ├── aggregated/
 │       ├── map/
 │       └── top/
-├── main.py  ← Your current script
+├── demo.py
 └── README.md
 ```
 
@@ -133,7 +133,7 @@ Each dataset includes:
 3. Run the script:
 
    ```bash
-   python main.py
+   demo.py
    ```
 
 ---
