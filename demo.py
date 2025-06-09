@@ -199,7 +199,7 @@ query=""" create table if not exists map_insurance (
   label varchar(255)
   )
 """
-cursor.execute(query)
+#cursor.execute(query)
 
 # 2*2 map/transaction/
 path=r"G:\python\pulse\data\map\transaction\hover\country\india\state"
