@@ -1,37 +1,51 @@
 # 📊 PhonePe Pulse Data Pipeline with MySQL
 
-This project is designed to extract JSON data from PhonePe Pulse data repository and insert it into a structured **MySQL** database. It uses **Python**, **Pandas**, and **MySQL Connector** to perform **ETL (Extract, Transform, Load)** operations across multiple datasets such as **aggregated transactions**, **user data**, **insurance**, **map-based metrics**, and **top district-wise records**.
+This project extracts, transforms, and loads data from the **[PhonePe Pulse GitHub Repository](https://github.com/PhonePe/pulse)** into a **MySQL** database using Python. It covers **aggregated**, **map-based**, and **top** datasets related to transactions, users, and insurance across India.
+
+---
+
+## 🧬 Clone the Dataset
+
+To begin, clone the official PhonePe Pulse data repository:
+
+```bash
+git clone https://github.com/PhonePe/pulse.git
+```
+
+This will download the full JSON dataset used by the script.
+
+---
+
 ## 🏗️ Project Structure
 
 ```bash
 project-root/
 │
-├── pulse/
+├── pulse/                        ← Cloned GitHub repo
 │   └── data/
 │       ├── aggregated/
 │       ├── map/
 │       └── top/
-├── demo.py
+├── demo.py                       ← Python ETL script
 └── README.md
 ```
 
+---
+
 ## 🔧 Requirements
 
-* Python 3.7+
-* MySQL Server
+* **Python 3.7+**
+* **MySQL Server**
 * Required Python libraries:
 
   ```bash
   pip install pandas mysql-connector-python
   ```
-
 ---
 
 ## ⚙️ Setup Instructions
 
 ### 🔌 Step 1: Configure MySQL Connection
-
-In your script:
 
 ```python
 connection = mysql.connector.connect(
@@ -42,7 +56,7 @@ connection = mysql.connector.connect(
 )
 ```
 
-Ensure the database `phonepay` exists before running the script:
+Make sure the database exists:
 
 ```sql
 CREATE DATABASE phonepay;
@@ -54,103 +68,80 @@ CREATE DATABASE phonepay;
 
 ### 1. Aggregated Data
 
-#### ✅ `aggregated/transaction`
-
-* Transaction type
-* Count
-* Amount
-
-#### ✅ `aggregated/user`
-
-* Brand-wise device usage
-* Registered users & app opens
-
-#### ✅ `aggregated/insurance`
-
-* Insurance transaction count and amount
+| Dataset Path             | Data Included                                   |
+| ------------------------ | ----------------------------------------------- |
+| `aggregated/transaction` | Transaction type, count, amount                 |
+| `aggregated/user`        | Device brand usage, app opens, registered users |
+| `aggregated/insurance`   | Insurance count and value                       |
 
 ---
 
 ### 2. Map-Based Data
 
-#### ✅ `map/insurance`
-
-* State-wise insurance data with coordinates
-
-#### ✅ `map/transaction`
-
-* District-level transaction count and amount
-
-#### ✅ `map/user`
-
-* District-level user registrations and app opens
+| Dataset Path      | Data Included                     |
+| ----------------- | --------------------------------- |
+| `map/insurance`   | Insurance data with lat/lng       |
+| `map/transaction` | District-wise transaction metrics |
+| `map/user`        | District-wise user data           |
 
 ---
 
 ### 3. Top Data
 
-#### ✅ `top/insurance`
-
-* Top districts by insurance metrics
+| Dataset Path    | Data Included                      |
+| --------------- | ---------------------------------- |
+| `top/insurance` | Top districts by insurance metrics |
 
 ---
 
 ## 🧠 Code Functionality
 
-### 🔍 Extract Function
-
-Reads nested directory data using:
+### 🔍 Data Extraction
 
 ```python
 def extract_transaction_data(path):
     ...
 ```
 
-### 🧾 Dataframe to SQL
+Walks through the JSON files and yields structured records.
 
-Converts Pandas DataFrame to tuple list:
+### 🔄 Data Transformation
+
+Data is transformed into Pandas DataFrames, then converted to SQL tuples:
 
 ```python
 def get_list_values(values):
     return [tuple(x) for x in values.to_numpy()]
 ```
 
-### 📥 SQL Table Creation & Insertion
+### 🗃️ Table Creation & Data Insertion
 
-Each dataset includes:
-
-* Table creation with primary keys
-* JSON parsing
-* Dataframe creation
-* `INSERT IGNORE` to prevent duplication
+* Tables are created with **primary keys**
+* Data is inserted using `INSERT IGNORE` to prevent duplicates
 
 ---
 
-## 🏁 How to Run
+## 🏁 Run the Project
 
-1. Update all file paths according to your system
-2. Ensure MySQL server is running
-3. Run the script:
+1. Clone the PhonePe Pulse repo
+2. Configure MySQL
+3. Update file paths in `main.py`
+4. Run:
 
    ```bash
-   demo.py
+   python main.py
    ```
 
 ---
 
-## 🔐 Primary Keys & Integrity
+## 📌 Data Integrity
 
-Each table uses a **composite primary key** for unique entries (e.g., `state + year + quarter + type`) to maintain data integrity and prevent duplicates.
-
----
-
-## 📌 Notes
-
-* You can use `INSERT IGNORE` for idempotent insertions
-* Each `.json` file is parsed only if it contains valid data
-* Percentages are formatted as string values with `%`
+Each table uses composite primary keys like `(state, year, quarter, type)` to ensure unique records.
 
 ---
+
 ## 📜 License
-This project is for educational use. Attribution required if reused in public platforms.
+
+For educational purposes. Please credit if reused or published.
+
 ---
