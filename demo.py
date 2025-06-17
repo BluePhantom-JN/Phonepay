@@ -1051,13 +1051,45 @@ def insurance_analysis_1(aggr_insurance,year):
 #(((((((((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
 # Streamlit UI
+
 st.set_page_config(page_title="PhonePe Data", layout="wide")
-st.title('PHONE PAY DATA VISUALISATION')
 
 with st.sidebar:
-    select = option_menu("menu", ["data project","Data Insights", "Performance Charts"])
-if select == "data project":
+    select = option_menu("menu", ["Phone pay","Data Insights", "Performance Charts"])
+if select == "Phone pay":
     st.header('phone pay digital payment')
+    st.markdown("""
+                    ## 📊 About the Project
+
+                    Welcome to the **PhonePe Data Visualization Project**!  
+                    This dashboard presents an interactive and insightful exploration of **digital payment trends in India** using the official PhonePe Pulse data.  
+                    We aim to understand user behavior, transaction patterns, geographic variations, and the growth of digital payments across different Indian states and districts.
+
+                    ---
+
+                    ## 🔍 Data Insights
+
+                    In the **Data Insights** section, you'll find detailed visualizations and analyses categorized into:
+                    - **Aggregated Analysis**: Trends over time in transaction counts and values.
+                    - **Map Analysis**: State-wise and district-wise digital payment penetration.
+                    - **Insurance Analysis**: Insights into digital insurance usage and patterns.
+
+                    ---
+
+                    ## 👤 About the Author
+
+                    This project is developed by **Aravind**, With this dashboard, the goal is to make complex data easy to understand and useful for Bussiness insights and future plannings.
+
+                    ---
+
+                    ## Performance Chart
+                    - Aggregate Transaction Input
+                    - Device Dominance and User Engagement
+                    - Insurance Penetration and Growth Potential
+                    - Transaction Analysis for Market Expansion
+                    - User Registration Analysis
+
+                    """)
 elif select == "Data Insights":
     tab1, tab2, tab3 = st.tabs(["Aggregated Analysis", "Map Analysis", "Insurance Analysis"])
 
