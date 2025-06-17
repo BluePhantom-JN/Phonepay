@@ -757,7 +757,7 @@ def user_registration_analysis(top_user):
 #((((((((((((((((((((((((((((((((((((((((((((((            ))))))))))))))))))))))))))))))))))))))))))))))
 
 # data insight function 
-def aggr_transaction_datainsight(df, year, quarter, state,transaction_type):
+def aggr_transaction_datainsight_1(df, year, quarter, state,transaction_type):
     df = state_name_order(df)
 
     if year != "All":
@@ -826,7 +826,7 @@ def aggr_transaction_datainsight(df, year, quarter, state,transaction_type):
     )
     st.plotly_chart(fig_india_2)
 
-def table_aggr_user(df, year, quarter, state,brand):
+def aggr_transaction_datainsight_2(df, year, quarter, state,brand):
     df = state_name_order(df)
 
     if year != "All":
